@@ -6,6 +6,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::middleware([
     Route::patch('/product/{product:id}', [ProductController::class, 'update'])->name('product.update');
 
     Route::delete('/product/{product:id}', [ProductController::class, 'destroy'])->name('product.delete');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user');
 });
 
 Route::middleware([

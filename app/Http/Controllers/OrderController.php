@@ -22,7 +22,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where(['user_id' => auth()->user()->id])->withCount('products')->get();
+        if (auth()->user()->email === 'admin@admin.com') {
+            $orders = Order::all();
+        } else {
+            $orders = Order::where(['user_id' => auth()->user()->id])->withCount('products')->get();
+        }
         return Inertia::render('Order/Index', [
             'orders' => $orders
         ]);

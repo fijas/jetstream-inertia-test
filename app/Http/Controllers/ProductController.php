@@ -11,10 +11,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\RedirectResponse|\Inertia\Response
      */
     public function index()
     {
+        if (!auth()->user()->email === 'admin@admin.com') {
+            return redirect()->route('welcome');
+        }
         return Inertia::render('Product/List', [
             'products' => Product::all()
         ]);

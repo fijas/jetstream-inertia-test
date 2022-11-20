@@ -53,6 +53,12 @@ const logout = () => {
                                 <NavLink :href="route('product')" :active="route().current('product')" v-if="$page.props && $page.props.user && $page.props.user.email === 'admin@admin.com'">
                                     Products
                                 </NavLink>
+                                <NavLink :href="route('order')" :active="route().current('order')" v-if="$page.props && $page.props.user && $page.props.user.email === 'admin@admin.com'">
+                                    Orders
+                                </NavLink>
+                                <NavLink :href="route('user')" :active="route().current('user')" v-if="$page.props && $page.props.user && $page.props.user.email === 'admin@admin.com'">
+                                    Users
+                                </NavLink>
                             </div>
                         </div>
 

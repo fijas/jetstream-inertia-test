@@ -73,10 +73,10 @@ const deleteProduct = (id) => {
                                     <div class="text-center">{{ product.company }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">{{ product.quantity }}</div>
+                                    <div class="text-center">{{ product.quantity }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">${{ product.price }}</div>
+                                    <div class="text-center">${{ product.price }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap text-right flex flex-row justify-end">
                                     <Link class="font-semibold text-blue-600 my-auto mr-2 p-2" :href="route('product.edit', product.id)">
