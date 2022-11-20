@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +19,11 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [SiteController::class, 'index'])->name('welcome');
+
+Route::get('/product/{product:id}', [ProductController::class, 'show'])->name('product.show');
+
+Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 
 Route::middleware([
     'auth:sanctum',
@@ -32,4 +33,16 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+    Route::post('/order/create', [OrderController::class, 'store'])->name('order.create');
+
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
+
+    Route::get('/order/{order:id}', [OrderController::class, 'show'])->name('order.view');
+
+    Route::delete('/order/{order:id}', [OrderController::class, 'destroy'])->name('order.delete');
+
+    Route::get('/transactions/{orderId}', [TransactionController::class, 'index'])->name('transactions');
 });

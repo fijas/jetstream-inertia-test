@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::create('orders_products', function (Blueprint $table){
+        Schema::create('order_product', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');

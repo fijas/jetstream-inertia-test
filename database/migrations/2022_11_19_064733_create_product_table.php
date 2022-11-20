@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->smallInteger('quantity');
+            $table->decimal('price', 8, 2);
             $table->string('picture')->default('no_image.jpg');
             $table->timestamps();
         });
