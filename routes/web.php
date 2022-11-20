@@ -6,7 +6,6 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +23,12 @@ Route::get('/', [SiteController::class, 'index'])->name('welcome');
 Route::get('/product/{product:id}', [ProductController::class, 'show'])->name('product.show');
 
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
+
+Route::get('/mailable', function () {
+    $order = App\Models\Order::find(2);
+
+    return new App\Mail\OrderCreated($order);
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -43,6 +48,4 @@ Route::middleware([
     Route::get('/order/{order:id}', [OrderController::class, 'show'])->name('order.view');
 
     Route::delete('/order/{order:id}', [OrderController::class, 'destroy'])->name('order.delete');
-
-    Route::get('/transactions/{orderId}', [TransactionController::class, 'index'])->name('transactions');
 });

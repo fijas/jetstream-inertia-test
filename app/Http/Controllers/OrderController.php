@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -72,6 +74,7 @@ class OrderController extends Controller
                 'count' => $cart[$product->id]
             ]);
         }
+        Mail::to($request->user())->send(new OrderCreated($order));
         Transaction::create([
             'order_id' => $order->id,
             'status' => Transaction::STATUS_PAYMENT_INITIATED,
