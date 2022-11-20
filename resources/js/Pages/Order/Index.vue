@@ -10,12 +10,16 @@ defineProps({
 
 <template>
     <AppLayout title="My Orders">
+
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                My Orders
+            </h2>
+        </template>
+
         <div class="flex flex-col justify-center h-full py-2">
             <!-- Table -->
             <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                <header class="px-5 py-4 border-b border-gray-100">
-                    <h2 class="font-semibold text-gray-800">My Orders</h2>
-                </header>
                 <div class="p-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto border w-full">

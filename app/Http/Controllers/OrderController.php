@@ -92,7 +92,7 @@ class OrderController extends Controller
         Mail::to($request->user())->send(new TransactionStatusUpdate('Payment Completed', $order));
         session()->put('cart', null);
 
-        return redirect('order');
+        return redirect()->route('order');
     }
 
     /**
@@ -141,9 +141,10 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        if (!$order->delete()) {
-            return redirect('order.view', $order->id);
-        }
-        return redirect('order');
+        /*if ($order->deleteOrFail()) {
+            // return redirect('order');
+        }*/
+        $order->deleteOrFail();
+        return redirect()->route('order');
     }
 }

@@ -38,4 +38,15 @@ class Order extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($order) {
+            // here you could instantiate each related Comment
+            // in this way the boot function in the Comment model will be called
+            OrderProduct::where(['order_id' => $order->id])->delete();
+            Transaction::where(['order_id' => $order->id])->delete();
+        });
+    }
 }

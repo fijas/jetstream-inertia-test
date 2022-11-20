@@ -31,7 +31,7 @@ function submit() {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white p-6 border-t" v-if="product">
             <div class="flex flex-col md:flex-row -mx-4">
                 <div class="md:flex-1 px-4">
-                    <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
+                    <div class="h-64 md:h-80 rounded-lg mb-4">
                         <img :src="'/storage/images/products/' + product.picture"
                              :alt="product.name"
                              class="object-cover rounded-md">
@@ -72,7 +72,7 @@ function submit() {
                         <button type="submit"
                                 class="h-14 px-6 py-2 font-semibold rounded-md
                                 bg-indigo-600 hover:bg-indigo-500 text-white">
-                            Order Now
+                            Add To Cart
                         </button>
                     </form>
                     <div class="flex flex-row p-4 bg-gray-200 border border-gray-300 mt-2 rounded" v-else>

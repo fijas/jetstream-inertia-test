@@ -20,7 +20,7 @@ defineProps({
             </h2>
         </template>
 
-        <div class="p-4">
+        <div class="max-w-7xl p-4 mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
                 <Link :href="route('product.show', product.id)" v-for="(product, index) in products" :key="product.id">
                     <div class="flex flex-col bg-white drop-shadow hover:drop-shadow-lg hover:opacity-70 rounded-md">
@@ -36,6 +36,5 @@ defineProps({
                 </Link>
             </div>
         </div>
-        {{ products }}
     </AppLayout>
 </template>
