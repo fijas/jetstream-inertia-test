@@ -8,7 +8,11 @@ After cloning the repository, install composer and npm packages:
 
 Create the `.env` file by copying `.env.example` file. Modify as needed.
 
-It is recommended to run the app using `sail`. Start sail by running:
+It is recommended to run the app using `sail`.
+
+By default sail uses the `80` port, so either make sure that port is not occupied or modify `sail` config to use another port.
+
+Start sail by running:
 
     ./vendor/bin/sail up
 
