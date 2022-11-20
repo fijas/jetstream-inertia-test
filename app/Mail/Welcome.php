@@ -2,26 +2,33 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
+
+    /**
+     * The order instance.
+     *
+     * @var \App\Models\User
+     */
+    public $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -32,9 +39,7 @@ class SendMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('jeffrey@example.com', 'Jeffrey Way'),
-            subject: 'Send Mail',
-
+            subject: 'Welcome to Life App!',
         );
     }
 
@@ -46,7 +51,7 @@ class SendMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mail.order-created',
+            view: 'mail.welcome',
         );
     }
 

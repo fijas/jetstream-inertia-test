@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderCreated;
+use App\Mail\TransactionStatusUpdate;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
@@ -81,12 +82,14 @@ class OrderController extends Controller
             'amount' => $total,
             'type' => Transaction::TYPE_CREDIT_CARD,
         ]);
+        Mail::to($request->user())->send(new TransactionStatusUpdate('Initiated', $order));
         Transaction::create([
             'order_id' => $order->id,
             'status' => Transaction::STATUS_PAYMENT_COMPLETED,
             'amount' => $total,
             'type' => Transaction::TYPE_CREDIT_CARD,
         ]);
+        Mail::to($request->user())->send(new TransactionStatusUpdate('Payment Completed', $order));
         session()->put('cart', null);
 
         return redirect('order');
