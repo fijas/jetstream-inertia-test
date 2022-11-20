@@ -11,21 +11,25 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        return Inertia::render('Product/List', [
+            'products' => Product::all()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function create()
     {
-        //
+        return Inertia::render('Product/Form', [
+            'type' => 'create'
+        ]);
     }
 
     /**
@@ -36,7 +40,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'company' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['code'] = 'manual-' . rand(50, 700);
+
+        Product::create($data);
+
+        return redirect()->route('product')->banner('Product added successfully');
     }
 
     /**
@@ -62,11 +78,14 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function edit(Product $product)
     {
-        //
+        return Inertia::render('Product/Form', [
+            'product' => $product,
+            'type' => 'update'
+        ]);
     }
 
     /**
@@ -74,21 +93,31 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'company' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+        ]);
+
+        $product->update($request->all());
+
+        return redirect()->route('product')->banner('Product updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Product $product)
     {
-        //
+        $product->deleteOrFail();
+        return redirect()->route('product');
     }
 }

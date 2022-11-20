@@ -18,13 +18,6 @@ use App\Http\Controllers\CartController;
 |
 */
 
-Route::middleware([
-    config('jetstream.auth_session')
-])->group(function () {
-    Route::get('/', [SiteController::class, 'index'])->name('welcome');
-
-    Route::get('/product/{product:id}', [ProductController::class, 'show'])->name('product.show');
-});
 
 Route::middleware([
     'auth:sanctum',
@@ -46,4 +39,24 @@ Route::middleware([
     Route::get('/order/{order:id}', [OrderController::class, 'show'])->name('order.view');
 
     Route::delete('/order/{order:id}', [OrderController::class, 'destroy'])->name('order.delete');
+
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+
+    Route::get('/product', [ProductController::class, 'index'])->name('product');
+
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.new');
+
+    Route::get('/product/edit/{product:id}', [ProductController::class, 'edit'])->name('product.edit');
+
+    Route::patch('/product/{product:id}', [ProductController::class, 'update'])->name('product.update');
+
+    Route::delete('/product/{product:id}', [ProductController::class, 'destroy'])->name('product.delete');
+});
+
+Route::middleware([
+    config('jetstream.auth_session')
+])->group(function () {
+    Route::get('/', [SiteController::class, 'index'])->name('welcome');
+
+    Route::get('/product/{product:id}', [ProductController::class, 'show'])->name('product.show');
 });

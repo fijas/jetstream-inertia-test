@@ -44,11 +44,14 @@ const logout = () => {
                                 <NavLink :href="route('welcome')" :active="route().current('welcome')">
                                     Shop
                                 </NavLink>
-                                <NavLink :href="route('order')" :active="route().current('order')" v-if="$page.props && $page.props.user">
+                                <NavLink :href="route('order')" :active="route().current('order')" v-if="$page.props && $page.props.user && $page.props.user.email !== 'admin@admin.com'">
                                     My Orders
                                 </NavLink>
-                                <NavLink :href="route('cart')" :active="route().current('cart')" v-if="$page.props && $page.props.user">
+                                <NavLink :href="route('cart')" :active="route().current('cart')" v-if="$page.props && $page.props.user && $page.props.user.email !== 'admin@admin.com'">
                                     My Cart
+                                </NavLink>
+                                <NavLink :href="route('product')" :active="route().current('product')" v-if="$page.props && $page.props.user && $page.props.user.email === 'admin@admin.com'">
+                                    Products
                                 </NavLink>
                             </div>
                         </div>
